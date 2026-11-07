@@ -136,3 +136,20 @@ Cenário: ID inválido
 - `python -m src --help` deve apresentar os comandos disponíveis sem criar banco.
 - Os testes devem usar diretórios temporários e não alterar o banco pessoal do usuário.
 - A conclusão do fluxo de engenharia exige vínculos reais entre Issues, PRs e requisitos; esses vínculos serão registrados após a publicação no GitHub.
+
+
+## [US05] Corrigir título — RF05 / CU05 / BL08 / Issue #12
+
+Como usuário local, quero editar o título de uma tarefa para corrigir sua descrição sem perder o histórico do identificador e da situação.
+
+- Dada tarefa pendente ou concluída, quando edito com título válido, então somente o título muda e a alteração persiste.
+- Dado título com espaços repetidos, quando edito, então o título é normalizado como no cadastro.
+- Dado título inválido ou ID inexistente, quando tento editar, então recebo erro e os registros são preservados.
+
+## [US06] Retomar tarefa — RF06 / CU06 / BL09 / Issue #13
+
+Como usuário local, quero reabrir uma tarefa concluída para retomar uma atividade sem cadastrá-la novamente.
+
+- Dada tarefa concluída, quando reabro, então ela fica pendente com o mesmo ID e título em nova execução.
+- Dada tarefa já pendente, quando reabro, então recebo informação com sucesso e não há duplicação.
+- Dado ID inválido ou inexistente, quando tento reabrir, então recebo erro e as outras tarefas permanecem iguais.

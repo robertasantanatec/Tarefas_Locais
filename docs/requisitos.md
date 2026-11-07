@@ -34,12 +34,12 @@ O sistema deve excluir permanentemente uma tarefa pendente ou concluída somente
 | ID | Requisito verificável | Verificação |
 |---|---|---|
 | RNF01 | Persistir as alterações bem-sucedidas em SQLite e recuperá-las em uma nova execução com o mesmo banco. | Testes de reabertura e ciclo completo entre processos. |
-| RNF02 | Executar com Python 3.11 ou superior usando somente a biblioteca padrão; os comandos devem ser compatíveis com Windows e Linux. | Matriz de CI em Python 3.11/3.12 nos dois sistemas. O ambiente local foi verificado em Linux com Python 3.12; a matriz remota aguarda execução. |
+| RNF02 | Executar com Python 3.11 ou superior usando somente a biblioteca padrão; os comandos devem ser compatíveis com Windows e Linux. | Matriz de CI em Python 3.11/3.12 nos dois sistemas. A matriz remota foi aprovada na [CI da versão 0.1.0](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648). |
 | RNF03 | Disponibilizar ajuda e mensagens de negócio em português; retornar código 0 no sucesso, 1 em falha de negócio/acesso ao banco e 2 em erro de sintaxe de comando. Erros previstos não devem apresentar traceback. | Testes de CLI, `--help`, entradas inválidas e caminho de banco inacessível. A sintaxe de ajuda automática é fornecida pelo argparse. |
 | RNF04 | Usar parâmetros nas consultas SQL, transações nas alterações e validações de título, ID e situação. | Testes de entrada semelhante a SQL, entradas inválidas e preservação dos demais registros. Restrições também definidas na tabela. |
 | RNF05 | Separar interface e regras/persistência em módulos; manter uma suíte executável com um único comando e sem instalar bibliotecas externas. | Inspeção de `src/` e execução de `python -m unittest discover -s tests -v`. |
 | RNF06 | Manter o banco no computador do usuário, sem envio por rede, e excluir dados locais, ambientes e temporários do versionamento. | Inspeção do código e das regras de `.gitignore`. Sem autenticação ou criptografia nesta versão. |
-| RNF07 | Automatizar os testes em pushes de branches de trabalho e em PRs para `develop` e `main`. | Workflow `.github/workflows/testes.yml`; aprovação remota só pode ser verificada após publicar e executar a CI. |
+| RNF07 | Automatizar os testes em pushes de branches de trabalho e em PRs para `develop` e `main`. | Workflow `.github/workflows/testes.yml`; aprovação remota verificada na [execução da versão 0.1.0](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648). |
 
 ## Regras de domínio e limites
 

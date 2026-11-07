@@ -46,3 +46,22 @@ Em `tests/test_cli.py`, o ciclo completo cobre cadastro, listagem, filtros, conc
 | BL07 | [#7](https://github.com/robertasantanatec/Tarefas_Locais/issues/7) | [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) e [PR #10](https://github.com/robertasantanatec/Tarefas_Locais/pull/10) |
 
 Os IDs RF, CU, US e BL permanecem estáveis e são complementados pelos números reais do GitHub. A tag anotada [v0.1.0](https://github.com/robertasantanatec/Tarefas_Locais/releases/tag/v0.1.0) identifica a versão inicial. A [CI da main](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648) registrou a aprovação das quatro combinações. Os vínculos acima permitem consultar as evidências no repositório.
+
+## Evolução 0.2.0 — avaliação Week_01
+
+| Item | Issue real | Implementação / verificação |
+|---|---|---|
+| RF05 / CU05 / US05 / BL08 | [#12](https://github.com/robertasantanatec/Tarefas_Locais/issues/12) | `RepositorioTarefas.editar`, CLI `editar`; `test_editar_preserva_id_estado_e_outros_registros`, `test_editar_rejeita_invalidos_sem_alterar_registros`, `test_editar_limites_e_sql_parametrizado`, `test_ciclo_completo_persiste_entre_processos`. |
+| RF06 / CU06 / US06 / BL09 | [#13](https://github.com/robertasantanatec/Tarefas_Locais/issues/13) | `RepositorioTarefas.reabrir`, CLI `reabrir`; `test_reabrir_persiste_sem_afetar_outros`, `test_reabrir_invalido_e_inexistente_preserva_dados`, ciclo entre processos. |
+| QA-COV / RNF09 | [#14](https://github.com/robertasantanatec/Tarefas_Locais/issues/14) | `.coveragerc`, testes.yml; baseline local 99%, gate 85%. |
+| DOC-CTB | [#15](https://github.com/robertasantanatec/Tarefas_Locais/issues/15) | CONTRIBUTING.md. |
+| SEC-SCAN / RNF12 | [#16](https://github.com/robertasantanatec/Tarefas_Locais/issues/16) | seguranca.yml: Gitleaks + pip-audit. |
+| DEP-BOT / RNF12 | [#17](https://github.com/robertasantanatec/Tarefas_Locais/issues/17) | dependabot.yml semanal, pip/Actions. |
+| ENV-EX | [#18](https://github.com/robertasantanatec/Tarefas_Locais/issues/18) | config.py, .env.example; `test_configuracao_precedencia_env_e_exemplo`. |
+| DOC-IDX | [#19](https://github.com/robertasantanatec/Tarefas_Locais/issues/19) | docs/README.md, versão/data/regra de sincronização. |
+| QA-LINT / RNF09 | [#20](https://github.com/robertasantanatec/Tarefas_Locais/issues/20) | Ruff, pre-commit e CI; teste negativo de hook em repositório temporário. |
+| PERF-BASE / RNF08 | [#21](https://github.com/robertasantanatec/Tarefas_Locais/issues/21) | tools/benchmark.py e desempenho.md, medições reais. |
+| OBS-LOG / RNF10 | [#22](https://github.com/robertasantanatec/Tarefas_Locais/issues/22) | observabilidade.py; `test_logs_de_erro_tem_identificador_e_contexto` e `test_cli_editar_reabrir_e_logs_json_sem_titulo`. |
+| DOCK-01 / RNF11 | [#23](https://github.com/robertasantanatec/Tarefas_Locais/issues/23) | Dockerfile, docker-compose.yml e docker.yml com persistência entre containers. |
+
+DOC-SYNC/TRC-ISS reutilizam #1 e #7, com [PR #11](https://github.com/robertasantanatec/Tarefas_Locais/pull/11). GIT-ISS reutiliza #7 para template, referências e verificação de integração/encerramento. Números do PDF são ordens da avaliação; #12–#23 são os números efetivamente atribuídos pelo GitHub.

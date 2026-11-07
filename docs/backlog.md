@@ -105,3 +105,24 @@ Prioridades: P1 = necessário ao produto/documentação; P2 = necessário ao fec
 ## Critério de pronto
 
 Uma Issue só é encerrada após verificar seus critérios, revisar as mudanças, aprovar os testes aplicáveis e atualizar os documentos afetados. Preparar arquivos localmente não comprova a criação da Issue, a revisão do PR ou a aprovação da CI.
+
+## Backlog da correção Week_01 — versão 0.2.0
+
+| Item | Issue | Prioridade | Entrega |
+|---|---|---|---|
+| BL08 / RF05 | #12 | Média | Editar título, preservar ID/situação e validar entradas. |
+| BL09 / RF06 | #13 | Média | Reabrir, preservar ID/título e tratar repetição. |
+| QA-COV | #14 | Baixa | Cobertura com limite 85% na CI. |
+| DOC-CTB | #15 | Baixa | Guia de contribuição do projeto. |
+| SEC-SCAN | #16 | Média | Gitleaks e auditoria de pacotes. |
+| DEP-BOT | #17 | Baixa | Atualizações semanais automatizadas. |
+| ENV-EX | #18 | Baixa | Configuração funcional e exemplo sem credenciais. |
+| DOC-IDX | #19 | Baixa | Índice e regra docs/código. |
+| QA-LINT | #20 | Baixa | Ruff, formatação e pre-commit. |
+| PERF-BASE | #21 | Baixa | Script e baseline de desempenho. |
+| OBS-LOG | #22 | Baixa | Eventos JSON com contexto. |
+| DOCK-01 | #23 | Baixa | Docker/Compose e persistência verificada na CI. |
+
+Critérios completos, responsáveis, rótulos e estado atualizado estão nas Issues reais, vinculadas na [matriz](rastreabilidade.md). DOC-SYNC e TRC-ISS reutilizam BL01/#1; GIT-ISS e a publicação reutilizam BL07/#7. Não há duplicação de BL01–BL07. O fechamento exige CI aprovada e integração na branch padrão.
+
+Os itens 16–25 do backlog futuro do PDF permanecem fora desta implementação.

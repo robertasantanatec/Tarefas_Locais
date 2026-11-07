@@ -15,8 +15,10 @@ class TestCLI(unittest.TestCase):
         return subprocess.run(
             [sys.executable, "-m", "src", "--banco", str(self.banco), *argumentos],
             cwd=Path(__file__).resolve().parents[1],
-            encoding="utf-8", capture_output=True, check=False,
-            env={**__import__('os').environ, 'PYTHONIOENCODING': 'utf-8'},
+            encoding="utf-8",
+            capture_output=True,
+            check=False,
+            env={**__import__("os").environ, "PYTHONIOENCODING": "utf-8"},
         )
 
     def test_ciclo_completo_persiste_entre_processos(self):
@@ -24,6 +26,10 @@ class TestCLI(unittest.TestCase):
         self.assertIn("Pendente | Ler documentação", self.executar("listar").stdout)
         self.assertEqual(self.executar("concluir", "1").returncode, 0)
         self.assertIn("Concluída", self.executar("listar", "--status", "concluidas").stdout)
+        self.assertEqual(self.executar("editar", "1", "Título corrigido").returncode, 0)
+        self.assertIn("Concluída | Título corrigido", self.executar("listar").stdout)
+        self.assertEqual(self.executar("reabrir", "1").returncode, 0)
+        self.assertIn("Pendente | Título corrigido", self.executar("listar").stdout)
         self.assertEqual(self.executar("excluir", "1", "--confirmar").returncode, 0)
         self.assertIn("Nenhuma tarefa", self.executar("listar").stdout)
 
@@ -61,7 +67,7 @@ class TestCLI(unittest.TestCase):
         self.assertEqual(self.executar("--help").returncode, 0)
         resultado = self.executar("--version")
         self.assertEqual(resultado.returncode, 0)
-        self.assertIn("0.1.0", resultado.stdout)
+        self.assertIn("0.2.0", resultado.stdout)
         self.assertFalse(self.banco.exists())
 
     def test_caminho_inacessivel_retorna_erro_controlado(self):

@@ -67,3 +67,8 @@ Fica fora do escopo desta semana:
 ## Critério de encerramento
 
 Os quatro requisitos funcionais devem estar implementados, os testes devem passar e todos os documentos devem corresponder ao comportamento entregue. O encerramento do fluxo no GitHub exige ainda Issues vinculadas aos PRs, integração em `main` e tag de versão. O pacote local contém os arquivos necessários; registros remotos só existirão após essas ações serem realizadas.
+
+
+## Ampliação autorizada pela avaliação Week_01 — versão 0.2.0
+
+O escopo inicial de 0.1.0 acima é preservado como registro histórico. A avaliação incluiu edição de título, reabertura e os controles de engenharia dos itens 01–15. Nesta etapa entram RF05/RF06, configuração `.env.example`, cobertura, lint/hooks, auditoria/atualizações, logs JSON, baseline e execução em Docker. Objetivo verificável da etapa: integrar RF01–RF06 com a suíte aprovada nas quatro combinações da CI, gate de 85% e documentação sincronizada antes da próxima entrega semanal. Roberta mantém a responsabilidade por desenvolvimento e revisão individual. Os itens 16–25 do backlog futuro não são implementados nesta correção.

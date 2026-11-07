@@ -40,17 +40,28 @@ class RepositorioTarefas:
 
     @staticmethod
     def _validar_id(identificador: int):
-        if isinstance(identificador, bool) or not isinstance(identificador, int) or identificador <= 0:
+        if (
+            isinstance(identificador, bool)
+            or not isinstance(identificador, int)
+            or identificador <= 0
+        ):
             raise ValueError("O identificador deve ser um inteiro maior que zero.")
 
-    def adicionar(self, titulo: str) -> Tarefa:
+    @staticmethod
+    def _validar_titulo(titulo: str) -> str:
         if not isinstance(titulo, str):
             raise ValueError("O título deve ser um texto.")
         titulo = " ".join(titulo.split())
         if not 1 <= len(titulo) <= 120:
-            raise ValueError("O título deve ter entre 1 e 120 caracteres após normalizar os espaços.")
+            raise ValueError(
+                "O título deve ter entre 1 e 120 caracteres após normalizar os espaços."
+            )
         if not titulo.isprintable():
             raise ValueError("O título deve conter apenas texto imprimível.")
+        return titulo
+
+    def adicionar(self, titulo: str) -> Tarefa:
+        titulo = self._validar_titulo(titulo)
         with self._conectar() as conexao:
             cursor = conexao.execute("INSERT INTO tarefas (titulo) VALUES (?)", (titulo,))
             identificador = cursor.lastrowid
@@ -61,7 +72,9 @@ class RepositorioTarefas:
             raise ValueError("Filtro inválido. Use todas, pendentes ou concluidas.")
         with self._conectar() as conexao:
             if status == "todas":
-                linhas = conexao.execute("SELECT id, titulo, concluida FROM tarefas ORDER BY id").fetchall()
+                linhas = conexao.execute(
+                    "SELECT id, titulo, concluida FROM tarefas ORDER BY id"
+                ).fetchall()
             else:
                 linhas = conexao.execute(
                     "SELECT id, titulo, concluida FROM tarefas WHERE concluida = ? ORDER BY id",
@@ -89,3 +102,32 @@ class RepositorioTarefas:
             cursor = conexao.execute("DELETE FROM tarefas WHERE id = ?", (identificador,))
             if not cursor.rowcount:
                 raise TarefaNaoEncontrada(f"Tarefa {identificador} não encontrada.")
+
+    def editar(self, identificador: int, titulo: str) -> Tarefa:
+        """Edita somente o título, preservando o ID e a situação."""
+        self._validar_id(identificador)
+        titulo = self._validar_titulo(titulo)
+        with self._conectar() as conexao:
+            cursor = conexao.execute(
+                "UPDATE tarefas SET titulo = ? WHERE id = ?", (titulo, identificador)
+            )
+            if not cursor.rowcount:
+                raise TarefaNaoEncontrada(f"Tarefa {identificador} não encontrada.")
+            concluida = conexao.execute(
+                "SELECT concluida FROM tarefas WHERE id = ?", (identificador,)
+            ).fetchone()[0]
+        return Tarefa(identificador, titulo, bool(concluida))
+
+    def reabrir(self, identificador: int) -> bool:
+        """Retorna False se a tarefa já era pendente, sem criar outro registro."""
+        self._validar_id(identificador)
+        with self._conectar() as conexao:
+            cursor = conexao.execute(
+                "UPDATE tarefas SET concluida = 0 WHERE id = ? AND concluida = 1",
+                (identificador,),
+            )
+            if cursor.rowcount:
+                return True
+            if conexao.execute("SELECT id FROM tarefas WHERE id = ?", (identificador,)).fetchone():
+                return False
+            raise TarefaNaoEncontrada(f"Tarefa {identificador} não encontrada.")

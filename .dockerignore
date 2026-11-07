@@ -1,0 +1,12 @@
+.git
+.venv
+venv
+**/__pycache__
+data
+.env
+.env.*
+*.sqlite3
+*.log
+tests
+docs
+.coverage*

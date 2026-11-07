@@ -55,3 +55,8 @@ Não há relações com outras entidades na versão inicial. Títulos não são 
 - **SQL parametrizado:** títulos são tratados como dados e não como comandos SQL.
 - **Uso local:** sem servidor, autenticação ou envio de dados pela aplicação. O controle de acesso ao arquivo é responsabilidade do sistema operacional.
 - **Backup:** não há automação; uma cópia manual deve ser feita com a aplicação fechada.
+
+
+## Evolução 0.2.0
+
+`cli.py` traduz comandos para o repositório; `config.py` resolve argumento/ambiente/`.env`; `observabilidade.py` emite eventos JSON em stderr. SQLite mantém a mesma tabela, sem migração: edição altera `titulo`, reabertura altera `concluida` para 0. `python-dotenv` é a única dependência da aplicação; ferramentas de qualidade são separadas em `requirements-dev.txt`. Não há servidor ou dependência de banco externa. Docker executa a mesma CLI e armazena o arquivo SQLite no volume `tarefas-data`.

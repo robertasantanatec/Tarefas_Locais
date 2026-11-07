@@ -1,20 +1,23 @@
-## Alteração
+## Problema e alteração
 
-Descreva a mudança e o motivo.
+Descreva o comportamento corrigido e a solução.
 
 ## Rastreabilidade
 
-- Issue no GitHub:
-- ID local do backlog:
-- RF / RNF / caso de uso / história:
-
-Para encerrar uma Issue automaticamente, use `Closes #numero` substituindo `numero`
-pelo número real da Issue. O fechamento automático ocorre quando a alteração chega
-à branch padrão. Em PRs para develop, mantenha também o vínculo explícito.
+Refs #N
+Closes #N <!-- usar somente quando todos os critérios da Issue forem atendidos -->
+RF/RNF, CU, US e BL afetados:
 
 ## Verificação
 
-- [ ] Os critérios de aceite foram conferidos.
-- [ ] `python -m unittest discover -s tests -v` passou.
-- [ ] Os documentos afetados foram atualizados.
-- [ ] Os commits contêm mudanças relacionadas ao objetivo deste PR.
+- [ ] Commits coesos, com padrão convencional e referência à Issue real.
+- [ ] Testes, cobertura mínima de 85%, lint e formatação aprovados.
+- [ ] Critérios de aceite revisados e evidências registradas abaixo.
+- [ ] Documentos, README, índice e changelog sincronizados quando aplicável.
+- [ ] Todos os checks remotos aprovados antes da integração.
+
+Comandos e resultados:
+
+## Revisão
+
+Registre a revisão individual. Não atribua revisão a quem não a realizou.

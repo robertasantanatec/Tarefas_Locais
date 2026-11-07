@@ -52,7 +52,9 @@ class TestRepositorioTarefas(unittest.TestCase):
         a = self.repo.adicionar("Estudar")
         b = self.repo.adicionar("Revisar")
         self.assertTrue(self.repo.concluir(a.id))
-        self.assertEqual([(t.id, t.concluida) for t in self.repo.listar()], [(a.id, True), (b.id, False)])
+        self.assertEqual(
+            [(t.id, t.concluida) for t in self.repo.listar()], [(a.id, True), (b.id, False)]
+        )
 
     def test_concluir_novamente_e_idempotente(self):
         tarefa = self.repo.adicionar("Revisar PR")

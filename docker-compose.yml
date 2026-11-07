@@ -1,0 +1,10 @@
+services:
+  tarefas:
+    build: .
+    environment:
+      TAREFAS_BANCO: /app/data/tarefas.sqlite3
+    volumes:
+      - tarefas-data:/app/data
+    command: ["listar"]
+volumes:
+  tarefas-data:

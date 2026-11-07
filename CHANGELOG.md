@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.1.0 — versão preparada
+## Não lançado
+
+### Corrigido
+
+- Sincronização dos estados de versão e CI com as evidências do GitHub.
+- Vínculos reais de BL01–BL07 às Issues e aos PRs.
+- Reintegração dos ajustes finais da release em develop pelo PR #10.
+
+## 0.1.0 — publicada
 
 ### Adicionado
 
@@ -11,4 +19,4 @@
 - 26 testes automatizados e configuração de CI para Windows/Linux em Python 3.11/3.12.
 - Documentação de planejamento, backlog, rastreabilidade e política Git Flow.
 
-Esta entrada descreve o conteúdo do pacote. A tag `v0.1.0`, os PRs e a publicação da versão no GitHub ainda dependem da execução no repositório remoto.
+Implementação pelo [PR #8](https://github.com/robertasantanatec/Tarefas_Locais/pull/8), integração em main pelo [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) e tag anotada `v0.1.0`. A [CI da versão](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648) aprovou os 26 testes iniciais em Windows/Linux e Python 3.11/3.12.

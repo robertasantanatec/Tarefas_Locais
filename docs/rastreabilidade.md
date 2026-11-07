@@ -16,12 +16,12 @@ Os nomes de testes abaixo correspondem aos métodos existentes nos arquivos indi
 | RNF | Backlog | Evidência e limite |
 |---|---|---|
 | RNF01 | BL02, BL04, BL06 | `test_persistir_entre_instancias` e `test_ciclo_completo_persiste_entre_processos` verificam armazenamento e reabertura. |
-| RNF02 | BL06 | CI configurada para Windows/Linux em Python 3.11/3.12. Verificação local feita em Linux/Python 3.12; demais ambientes dependem da execução remota. |
+| RNF02 | BL06 | CI configurada para Windows/Linux em Python 3.11/3.12. Verificação local em Linux/Python 3.12 e [matriz remota aprovada](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648). |
 | RNF03 | BL03–BL06 | Testes CLI de entrada inválida, ID inexistente/não positivo/não numérico, filtro inválido, ajuda/versão e caminho inacessível verificam mensagens e códigos. |
 | RNF04 | BL02–BL06 | `test_texto_parecido_com_sql_permanece_como_titulo`, testes de IDs/títulos e preservação de registros. SQL usa parâmetros e transações no repositório. |
 | RNF05 | BL01, BL06, BL07 | Módulos de interface e regras separados; 26 testes executados com um comando, sem pacotes adicionais. |
 | RNF06 | BL06, BL07 | Inspeção: nenhuma chamada de rede na aplicação e `.gitignore` exclui dados, ambientes, segredos locais e temporários. Isso não equivale a criptografia do banco. |
-| RNF07 | BL06, BL07 | Arquivo de CI entregue; aprovação dos jobs no GitHub ainda não disponível. |
+| RNF07 | BL06, BL07 | [Workflow executado e aprovado na main da versão 0.1.0](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648). |
 
 Em `tests/test_cli.py`, o ciclo completo cobre cadastro, listagem, filtros, conclusão e exclusão em processos separados. Os métodos `test_excluir_sem_confirmacao_nao_remove` e `test_ausencia_de_confirmacao_nao_cria_banco` verificam especificamente a confirmação de RF04.
 
@@ -37,12 +37,12 @@ Em `tests/test_cli.py`, o ciclo completo cobre cadastro, listagem, filtros, conc
 
 | Item local | Issue real | PR real |
 |---|---|---|
-| BL01 | Pendente de criação | Pendente de criação |
-| BL02 | Pendente de criação | Pendente de criação |
-| BL03 | Pendente de criação | Pendente de criação |
-| BL04 | Pendente de criação | Pendente de criação |
-| BL05 | Pendente de criação | Pendente de criação |
-| BL06 | Pendente de criação | Pendente de criação |
-| BL07 | Pendente de criação | Pendente de criação |
+| BL01 | [#1](https://github.com/robertasantanatec/Tarefas_Locais/issues/1) | [Commit inicial b0e1183](https://github.com/robertasantanatec/Tarefas_Locais/commit/b0e11835398bdc65b31ea083bb76422fec6c686b); não houve PR da base documental |
+| BL02 | [#2](https://github.com/robertasantanatec/Tarefas_Locais/issues/2) | [PR #8](https://github.com/robertasantanatec/Tarefas_Locais/pull/8), integrado pelo [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) |
+| BL03 | [#3](https://github.com/robertasantanatec/Tarefas_Locais/issues/3) | [PR #8](https://github.com/robertasantanatec/Tarefas_Locais/pull/8), integrado pelo [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) |
+| BL04 | [#4](https://github.com/robertasantanatec/Tarefas_Locais/issues/4) | [PR #8](https://github.com/robertasantanatec/Tarefas_Locais/pull/8), integrado pelo [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) |
+| BL05 | [#5](https://github.com/robertasantanatec/Tarefas_Locais/issues/5) | [PR #8](https://github.com/robertasantanatec/Tarefas_Locais/pull/8), integrado pelo [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) |
+| BL06 | [#6](https://github.com/robertasantanatec/Tarefas_Locais/issues/6) | [PR #8](https://github.com/robertasantanatec/Tarefas_Locais/pull/8), integrado pelo [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) |
+| BL07 | [#7](https://github.com/robertasantanatec/Tarefas_Locais/issues/7) | [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9) e [PR #10](https://github.com/robertasantanatec/Tarefas_Locais/pull/10) |
 
-Os números reais devem substituir os estados pendentes depois da publicação. Os IDs RF, CU, US e BL permanecem estáveis. Não há histórico Git, Issues, PRs ou tag remota incluídos no pacote de arquivos.
+Os IDs RF, CU, US e BL permanecem estáveis e são complementados pelos números reais do GitHub. A tag anotada [v0.1.0](https://github.com/robertasantanatec/Tarefas_Locais/releases/tag/v0.1.0) identifica a versão inicial. A [CI da main](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648) registrou a aprovação das quatro combinações. Os vínculos acima permitem consultar as evidências no repositório.

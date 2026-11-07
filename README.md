@@ -1,145 +1,131 @@
 # Tarefas Locais
 
-![Versão 0.1.0](.github/badges/versao.svg)
+![Versão 0.2.0](.github/badges/versao.svg)
 ![Licença MIT](.github/badges/licenca.svg)
-![Testes locais: 26 aprovados](.github/badges/testes.svg)
-![CI: execução pendente](.github/badges/ci.svg)
+[![Testes](https://github.com/robertasantanatec/Tarefas_Locais/actions/workflows/testes.yml/badge.svg?branch=main)](https://github.com/robertasantanatec/Tarefas_Locais/actions/workflows/testes.yml)
+[![Segurança](https://github.com/robertasantanatec/Tarefas_Locais/actions/workflows/seguranca.yml/badge.svg?branch=main)](https://github.com/robertasantanatec/Tarefas_Locais/actions/workflows/seguranca.yml)
+[![Docker](https://github.com/robertasantanatec/Tarefas_Locais/actions/workflows/docker.yml/badge.svg?branch=main)](https://github.com/robertasantanatec/Tarefas_Locais/actions/workflows/docker.yml)
 
-Gerenciador pessoal de tarefas por terminal, com dados armazenados em SQLite. Permite registrar pendências e acompanhar conclusões sem manter anotações dispersas. Desenvolvido por **Roberta Santana**.
+Gerenciador pessoal de tarefas por terminal, com persistência SQLite no computador do usuário. Centraliza pendências, conclusões e correções de descrição. Desenvolvido por **Roberta Santana**. Versão do código: **0.2.0**.
 
 ## Funcionalidades
 
-| Situação | Funcionalidade |
+| Estado | Recurso |
 |---|---|
-| Implementada — RF01 | Cadastrar título válido, normalizar espaços e gerar ID com situação pendente. |
-| Implementada — RF02 | Listar tarefas por ID e filtrar todas, pendentes ou concluídas. |
-| Implementada — RF03 | Concluir tarefa e tratar conclusão repetida sem duplicação. |
-| Implementada — RF04 | Excluir tarefa somente com confirmação explícita. |
-| Implementada | Persistir dados entre execuções e apresentar erros previstos sem traceback. |
-| Planejada para depois da semana | Edição de título e reabertura de tarefa; dependem de nova especificação e versão. |
+| Implementado — RF01 | Cadastrar título válido, normalizar espaços e gerar ID pendente. |
+| Implementado — RF02 | Listar por ID e filtrar todas, pendentes ou concluídas. |
+| Implementado — RF03 | Concluir tarefa, inclusive repetição idempotente. |
+| Implementado — RF04 | Excluir somente com confirmação explícita. |
+| Implementado — RF05 | Editar título preservando ID e situação. |
+| Implementado — RF06 | Reabrir tarefa concluída sem duplicar registros. |
+| Implementado | Configuração do banco, logs JSON, controles de qualidade e Docker. |
+| Futuro, fora desta correção | Prazos, categorias e exportação; itens 16–25 do PDF. |
 
-A versão do pacote é **0.1.0**. Os testes locais passaram; os badges são arquivos estáticos que registram esse estado. O workflow está configurado, mas seu resultado no GitHub ainda está pendente. Issues, PRs, tag e publicação da versão exigem execução no repositório remoto.
+A tag `v0.1.0` preserva a entrega inicial, publicada pelo [PR #9](https://github.com/robertasantanatec/Tarefas_Locais/pull/9), com [26 testes aprovados na CI](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648). O [PR #10](https://github.com/robertasantanatec/Tarefas_Locais/pull/10) reintegrou os ajustes em `develop`, e o [PR #11](https://github.com/robertasantanatec/Tarefas_Locais/pull/11) sincronizou documentação e evidências. Os badges acima consultam o estado atual dos workflows em `main`.
 
-## Ambiente e instalação
+## Instalação e execução local
 
-Requisitos: **Python 3.11 ou superior** com suporte a SQLite e um terminal. Git é necessário para versionar/publicar, mas não para executar a aplicação. Não há bibliotecas de terceiros nem etapa de `pip install`.
+Requisitos: Python 3.11+ com SQLite e terminal; Git para contribuir. A aplicação depende de `python-dotenv`, declarado em requirements.txt.
 
-1. Extraia ou clone o projeto e abra um terminal na pasta `tarefas-locais`.
-2. Verifique o Python e o SQLite:
-
-   ```bash
-   python --version
-   python -c "import sqlite3; print(sqlite3.sqlite_version)"
-   ```
-
-3. Opcionalmente, crie um ambiente virtual:
+1. Clone o repositório e entre na pasta:
 
    ```bash
+   git clone https://github.com/robertasantanatec/Tarefas_Locais.git
+   cd Tarefas_Locais
    python -m venv .venv
    ```
 
-   Ative no Linux/macOS com `source .venv/bin/activate`. No Windows, usando Prompt de Comando, execute `.venv\Scripts\activate.bat`.
+2. Ative o ambiente. Linux: `source .venv/bin/activate`. Windows/Prompt: `.venv\Scripts\activate.bat`. Instale:
 
-4. Consulte a ajuda e execute a aplicação:
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
+
+3. Para configurar o caminho, copie `.env.example` para `.env` na raiz (`cp .env.example .env` no Linux; `copy .env.example .env` no Windows). O exemplo já funciona com o banco padrão. Não publique `.env` ou dados pessoais.
+4. Confira a ajuda e execute na raiz:
 
    ```bash
    python -m src --help
    python -m src --version
-   python -m src adicionar "Revisar requisitos"
+   python -m src adicionar "Estudar testes"
    python -m src listar
+   python -m src listar --status pendentes
+   python -m src editar 1 "Revisar testes"
+   python -m src concluir 1
+   python -m src reabrir 1
+   python -m src excluir 1 --confirmar
    ```
 
-Em ambientes nos quais o executável se chama `python3` ou `py`, substitua `python` pelo comando correspondente. Confirme que a versão atende ao requisito.
+Use o ID real exibido na listagem. Títulos devem ter entre 1 e 120 caracteres imprimíveis após normalizar espaços. Exclusão confirmada é permanente. Concluir tarefa já concluída ou reabrir tarefa já pendente retorna sucesso sem duplicar registros.
 
-## Uso
+### Banco e configuração
 
-Execute os comandos a partir da raiz do projeto:
-
-```bash
-python -m src adicionar "Estudar testes"
-python -m src listar
-python -m src listar --status pendentes
-python -m src concluir 1
-python -m src listar --status concluidas
-python -m src excluir 1 --confirmar
-```
-
-O ID `1` é um exemplo: utilize o ID retornado pelo cadastro ou mostrado na listagem. O título deve ter de 1 a 120 caracteres após normalizar os espaços. Use aspas para títulos com espaços. Títulos iguais são aceitos com IDs diferentes.
-
-Sem `--confirmar`, a exclusão é recusada. A exclusão confirmada é permanente. Uma tarefa já concluída pode ser concluída novamente sem alteração de estado.
-
-### Banco de dados
-
-O arquivo padrão é `data/tarefas.sqlite3`, criado automaticamente quando necessário. O caminho é relativo ao diretório de execução; mantenha a execução na raiz para usar sempre a mesma base. Não envie dados pessoais ao repositório.
-
-Para escolher outra base, informe a opção global **antes do subcomando**:
-
-```bash
-python -m src --banco data/exemplo.sqlite3 adicionar "Preparar entrega"
-python -m src --banco data/exemplo.sqlite3 listar
-```
-
-O arquivo precisa de permissão de leitura/escrita. Para backup manual, feche a aplicação e copie o arquivo SQLite. Não há login, sincronização, criptografia ou backup automático.
-
-### Códigos de saída
-
-| Código | Significado |
+| Opção | Descrição |
 |---|---|
-| 0 | Sucesso, incluindo consulta vazia, ajuda, versão e conclusão repetida. |
-| 1 | Erro de validação/regra, falta de confirmação, tarefa inexistente ou falha de acesso ao banco. |
-| 2 | Uso incorreto do comando, como argumento ausente, ID não numérico ou filtro desconhecido. |
+| `TAREFAS_BANCO` | Caminho SQLite. Padrão `data/tarefas.sqlite3`, relativo ao diretório de execução. |
+| `--banco CAMINHO` | Opção global antes do subcomando; prevalece sobre a configuração. |
 
-## Testes e integração contínua
+Precedência: `--banco` > variável do processo > `.env` na raiz do projeto > padrão. Valor configurado vazio é erro. Exemplo: `python -m src --banco data/exemplo.sqlite3 listar`. Banco/tabela são criados no primeiro comando que os usa. Ajuda, versão e exclusão sem confirmação não criam banco. Backup manual: feche a aplicação e copie o SQLite. Não há autenticação, criptografia ou sincronização.
+
+### Saída e diagnóstico
+
+Sucesso retorna 0; erro de negócio/acesso ao banco retorna 1; erro de sintaxe retorna 2. Resultados ficam em stdout. Eventos JSON vão para stderr com timestamp UTC, nível, comando, evento e ID quando conhecido. Erros incluem tipo da exceção; títulos e caminhos não são incluídos no evento JSON. Mensagens legíveis de falha também são escritas em stderr, em linha separada, sem traceback. Não tratar todo stderr como um único JSON.
+
+## Testes e qualidade
 
 ```bash
-python -m unittest discover -s tests -v
+python -m pip install -r requirements-dev.txt
+python -m pre_commit install
+python -m ruff check .
+python -m ruff format --check .
+python -m coverage erase
+python -m coverage run -m unittest discover -s tests -v
+python -m coverage combine
+python -m coverage report --fail-under=85
+python -m pip_audit -r requirements-dev.txt
+python tools/benchmark.py
 ```
 
-São **26 testes**, com bancos temporários: 17 verificam regras/persistência e 9 verificam a CLI em processos separados. A execução local em Linux com Python 3.12 passou sem falhas. A suíte não utiliza o banco pessoal em `data/`.
+34 testes locais aprovados em Python 3.12/Linux, com bancos temporários. Cobertura medida: 99% de linhas/ramos em `src/`, incluindo subprocessos. O gate de 85% foi definido pelo projeto abaixo dessa baseline; a CI reprova resultados inferiores. Testes negativos confirmaram que o gate e os hooks rejeitam violações. [Método e desempenho medido](docs/desempenho.md).
 
-O [workflow de testes](.github/workflows/testes.yml) executa a suíte em Python 3.11 e 3.12, em Windows e Linux, nos pushes previstos e em PRs para `develop` e `main`. O status remoto só poderá ser confirmado após publicar o repositório. Os testes locais e a CI não devem ser confundidos.
+A CI executa testes, cobertura, Ruff e formatação em Python 3.11/3.12 e Windows/Linux. Workflows adicionais executam Gitleaks, pip-audit e build/persistência Docker. Dependabot verifica pip e GitHub Actions semanalmente, propondo PRs para `develop`. Resultado local não substitui a aprovação dos checks do PR.
 
-## Estrutura
+## Docker
 
-| Caminho | Conteúdo |
-|---|---|
-| `docs/` | Planejamento, especificações, backlog, arquitetura e rastreabilidade. |
-| `src/` | Código Python da aplicação. |
-| `tests/` | Testes de domínio, persistência e terminal. |
-| `.github/` | Workflow, templates de Issue/PR e badges. |
-| `.gitignore` | Exclusão de dados locais, ambientes e temporários. |
-| `CHANGELOG.md` | Mudanças da versão preparada. |
-| `LICENSE` | Licença MIT. |
+Requisitos: Docker e plugin Compose. Na raiz:
+
+```bash
+docker compose up --build
+docker compose run --rm tarefas adicionar "Tarefa no container"
+docker compose run --rm tarefas listar
+docker compose down
+```
+
+A aplicação é uma CLI: `up` executa a listagem e termina com código 0; não mantém servidor escutando. O volume `tarefas-data` mantém o SQLite entre containers. `down` preserva esse volume; `down --volumes` apaga os dados e deve ser usado apenas quando essa exclusão for intencional.
 
 ## Documentação
 
-- [Termo de Abertura](docs/project-charter.md)
-- [Requisitos funcionais e não funcionais](docs/requisitos.md)
+- [Índice e regra de sincronização](docs/README.md)
+- [Termo de abertura](docs/project-charter.md)
+- [Requisitos](docs/requisitos.md)
 - [Casos de uso](docs/casos-de-uso.md)
 - [Histórias e critérios de aceite](docs/user-stories.md)
-- [Backlog de engenharia](docs/backlog.md)
-- [Arquitetura e modelo de dados](docs/arquitetura.md)
-- [Rastreabilidade e validação](docs/rastreabilidade.md)
-- [Changelog](CHANGELOG.md) e [licença](LICENSE)
+- [Backlog](docs/backlog.md)
+- [Arquitetura e dados](docs/arquitetura.md)
+- [Rastreabilidade](docs/rastreabilidade.md)
+- [Baseline de desempenho](docs/desempenho.md)
+- [Contribuição](CONTRIBUTING.md), [changelog](CHANGELOG.md) e [licença MIT](LICENSE)
 
-## Fluxo de branches — Git Flow
+## Git Flow e SemVer
 
-| Branch | Origem | Finalidade | Integração |
-|---|---|---|---|
-| `main` | Inicialização do repositório | Versões estáveis e tags. | Recebe `release/*` e `hotfix/*` por PR. |
-| `develop` | `main` | Integração da próxima versão. | Recebe `feature/*`, correções de release e hotfixes. |
-| `feature/BLxx-descricao` | `develop` | Uma mudança coesa ligada ao backlog. | PR para `develop`, com testes e vínculos às Issues. |
-| `release/0.1.0` | `develop` | Revisão, ajustes finais e documentação da versão. | PR para `main` e reintegração em `develop`. |
-| `hotfix/0.1.1` | `main` | Correção urgente de versão publicada. | PR para `main` e reintegração em `develop`. |
+| Branch | Origem | Integração |
+|---|---|---|
+| `main` | Repositório | Recebe versões estáveis por PR; mesma URL da entrega. |
+| `develop` | `main` | Recebe branches de trabalho e reintegrações. |
+| `feature/*`, `docs/*`, `chore/*` | `develop` | PR revisado para `develop`, com Issue real e CI verde. |
+| `release/x.y.z` | `develop` | PR para `main`, tag da versão após CI; reintegração em `develop`. |
+| `hotfix/x.y.z` | `main` | PR para `main` e reintegração em `develop`. |
 
-O fluxo descrito é a política do projeto; o pacote de arquivos não contém um histórico Git já executado. Cada mudança deve citar os IDs aplicáveis, por exemplo `RF01 / US01 / BL02`, e a Issue real criada no GitHub. O [backlog](docs/backlog.md) fornece o conteúdo das Issues e os [templates](.github/ISSUE_TEMPLATE/atividade.md) padronizam seu registro.
+Commits coesos seguem Conventional Commits e citam Issue: `feat: editar titulo (#12)`. PRs referenciam critérios/testes e usam `Closes #N` quando completos; o fechamento automático ocorre ao alcançar `main`. Revisão individual é registrada sem atribuí-la a terceiros. O histórico antigo e tags publicadas são preservados.
 
-### Commits atômicos e revisão
-
-Um commit deve conter uma alteração coesa com os testes correspondentes, sem misturar mudanças independentes. Exemplos de mensagens: `feat: cadastrar tarefa com persistência (RF01, BL02)`, `fix: rejeitar título vazio (RF01)` e `docs: detalhar fluxo de exclusão (CU04)`.
-
-Antes do PR, executar os testes e atualizar os documentos afetados. O [template de PR](.github/pull_request_template.md) inclui a rastreabilidade e a validação. Em trabalho individual, registrar a própria revisão dos critérios e dos testes. Não declarar uma revisão de outra pessoa que não ocorreu. O fechamento automático de Issues por palavras como `Closes #N` depende de a alteração alcançar a branch padrão do repositório.
-
-### Versionamento semântico
-
-Usar `MAJOR.MINOR.PATCH`. O produto está em desenvolvimento inicial, versão `0.1.0`: correções compatíveis seguem como `0.1.1`; novas funcionalidades previstas seguem como `0.2.0`. Até `1.0.0`, registrar explicitamente mudanças incompatíveis, pois a interface ainda não é estável. Após `1.0.0`, incompatibilidades exigem incremento de MAJOR. Atualizar `src/__init__.py`, changelog e badge de versão em conjunto. Criar a tag `v0.1.0` somente no commit integrado em `main` e aprovado nos testes.
+SemVer `MAJOR.MINOR.PATCH`: 0.2.0 acrescenta edição/reabertura à entrega 0.1.0. Correções compatíveis incrementam PATCH; após 1.0.0, incompatibilidades incrementam MAJOR. Versão do código, teste, README, índice, badge e changelog são atualizados juntos. Veja [CONTRIBUTING](CONTRIBUTING.md).

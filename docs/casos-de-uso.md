@@ -105,3 +105,24 @@ Premissas comuns: executar a partir da raiz do projeto, com Python 3.11 ou super
 - E2 — ID menor ou igual a zero, após confirmação: o sistema informa erro de validação e retorna 1.
 - E3 — ID ausente ou não numérico: o parser retorna 2.
 - E4 — Falha de acesso: o sistema informa o erro e não confirma a exclusão.
+
+
+## [CU05] Editar título — RF05 / US05 / BL08 / Issue #12
+
+**Ator:** usuário local. **Pré-condição:** tarefa existente. **Pós-condição:** título válido persistido, ID e situação preservados.
+
+1. Usuário executa `editar ID "Novo título"`.
+2. Sistema valida ID e normaliza/valida o título como no cadastro.
+3. Sistema atualiza apenas o título do ID informado e confirma a edição.
+
+**Alternativos:** tarefa concluída também pode ser editada; repetir o mesmo título mantém os dados e confirma sucesso. **Exceções:** ID inválido/inexistente, título vazio/longo/não imprimível: erro 1, sem alteração; ID não numérico/argumento ausente: erro 2; falha SQLite: mensagem de acesso, erro 1 e evento JSON.
+
+## [CU06] Reabrir tarefa — RF06 / US06 / BL09 / Issue #13
+
+**Ator:** usuário local. **Pré-condição:** tarefa existente. **Pós-condição:** tarefa pendente, mesmo ID e título.
+
+1. Usuário executa `reabrir ID`.
+2. Sistema valida ID e altera concluída para pendente em transação.
+3. Sistema confirma a reabertura.
+
+**Alternativo:** já pendente: informar situação e retornar 0 sem criar registro. **Exceções:** ID inválido/inexistente: erro 1, demais registros preservados; ID não numérico/argumento ausente: erro 2; falha SQLite: erro 1 e evento JSON.

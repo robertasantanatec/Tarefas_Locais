@@ -24,3 +24,8 @@ data/
 .vscode/
 .DS_Store
 Thumbs.db
+
+!.env.example
+.coverage.*
+coverage.xml
+.ruff_cache/

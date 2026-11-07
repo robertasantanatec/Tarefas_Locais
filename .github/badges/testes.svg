@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="186" height="24" role="img" aria-label="testes locais: 26 aprovados">
-  <title>testes locais: 26 aprovados</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="186" height="24" role="img" aria-label="testes locais: 34 aprovados">
+  <title>testes locais: 34 aprovados</title>
   <rect width="186" height="24" rx="4" fill="#444"/>
   <path d="M90 0h92q4 0 4 4v16q0 4-4 4H90z" fill="#24733b"/>
   <g fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle">
     <text x="45.0" y="16">testes locais</text>
-    <text x="138.0" y="16">26 aprovados</text>
+    <text x="138.0" y="16">34 aprovados</text>
   </g>
 </svg>

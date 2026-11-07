@@ -1,0 +1,30 @@
+name: Docker
+on:
+  push:
+    branches: [main, develop, 'chore/**', 'release/**']
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  executar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Construir e iniciar a CLI
+        run: docker compose up --build --abort-on-container-exit --exit-code-from tarefas
+      - name: Verificar persistência entre containers
+        run: |
+          docker compose run --rm tarefas adicionar "Teste de persistência"
+          docker compose run --rm tarefas listar | grep -F "Pendente | Teste de persistência"
+          docker compose run --rm tarefas editar 1 "Título atualizado"
+          docker compose run --rm tarefas concluir 1
+          docker compose run --rm tarefas reabrir 1
+          docker compose run --rm tarefas listar | grep -F "Pendente | Título atualizado"
+      - name: Remover somente os dados temporários do runner
+        if: always()
+        run: docker compose down --volumes

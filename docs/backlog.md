@@ -1,8 +1,8 @@
 # Backlog de engenharia
 
-Os identificadores BL01–BL07 são locais e estáveis. Eles não representam números de Issues do GitHub. Cada item abaixo corresponde ao conteúdo de uma Issue; após sua criação, o número e o endereço reais devem ser registrados na tabela de rastreabilidade.
+Os identificadores BL01–BL07 são locais e estáveis. Eles identificam os itens de engenharia; seus vínculos na plataforma são [#1](https://github.com/robertasantanatec/Tarefas_Locais/issues/1) até [#7](https://github.com/robertasantanatec/Tarefas_Locais/issues/7), respectivamente. A matriz de rastreabilidade registra também os PRs e a evidência de validação.
 
-Prioridades: P1 = necessário ao produto/documentação; P2 = necessário ao fechamento da versão. A ordem considera dependências. O estado abaixo descreve o pacote local, sem presumir execução de PRs, CI ou releases no GitHub.
+Prioridades: P1 = necessário ao produto/documentação; P2 = necessário ao fechamento da versão. A ordem considera dependências. O estado abaixo registra a versão inicial publicada e as correções documentais da avaliação Week_01.
 
 | Item | Prioridade | Dependências | Estado local |
 |---|---|---|---|
@@ -11,8 +11,8 @@ Prioridades: P1 = necessário ao produto/documentação; P2 = necessário ao fec
 | BL03 | P1 | BL02 | Consulta e filtros implementados e testados. |
 | BL04 | P1 | BL02, BL03 | Conclusão implementada e testada. |
 | BL05 | P1 | BL02, BL03 | Exclusão implementada e testada. |
-| BL06 | P1 | BL02–BL05 | 26 testes locais aprovados; CI configurada, execução remota pendente. |
-| BL07 | P2 | BL01–BL06 | Versão e documentação preparadas; integração e tag remotas pendentes. |
+| BL06 | P1 | BL02–BL05 | 26 testes iniciais aprovados localmente e na CI Windows/Linux, Python 3.11/3.12; Issue #6 concluída. |
+| BL07 | P2 | BL01–BL06 | Versão 0.1.0 integrada pelo PR #9, tag anotada publicada e reintegração pelo PR #10; sincronização documental em revisão. |
 
 ## [BL01] Especificar o produto e seus critérios de aceite
 
@@ -84,10 +84,10 @@ Prioridades: P1 = necessário ao produto/documentação; P2 = necessário ao fec
 
 **Critérios de aceite:**
 
-- [ ] Os 26 testes passam com `python -m unittest discover -s tests -v`.
+- [x] Os 26 testes iniciais passam com `python -m unittest discover -s tests -v`.
 - [ ] A suíte verifica persistência entre processos, SQL parametrizado, erros legíveis e confirmação de exclusão.
 - [ ] O workflow executa a suíte em Python 3.11/3.12 em Windows e Linux.
-- [ ] As quatro combinações da CI passam no GitHub após a publicação. Esta evidência remota está pendente no pacote local.
+- [x] As quatro combinações da CI passam no GitHub. Evidência: [CI da versão 0.1.0](https://github.com/robertasantanatec/Tarefas_Locais/actions/runs/42376564648).
 
 ## [BL07] Preparar e integrar a versão 0.1.0
 
